@@ -1,0 +1,745 @@
++++++++++++++++++++
+
+
++++++++++++++++++++
+Date: Tue, 30 Apr 2002 22:37:32 GMT
+From: na5n at zianet.com
+To: n2cqr at clix.pt
+Cc: qrp-l at lehigh.edu
+Subject: [125830] Re: Biasing MOSFETS?
+Message-ID: <20020430223732.19795.qmail at zianet.com>
+Mime-version: 1.0
+Content-type: text/plain; charset="us-ascii"
+
+Bill Meara writes:
+> I'm using a little amplifier from Ramsey.  Two MOSFETS in push-pull.
+> Broadband linear RF Amp.  I'm using it on 17 meters.
+
+I am not familiar with this specific amplifier, but the principles for
+using MOSFET's is the same.
+
+> Problem is that it is getting very hot.  I've increased the size of the
+> heatsink, but it still is getting too hot.
+
+There are two types of MOSFET's: RF mosfet's and switching mosfets.  The
+RF mosfets are $30-40 each, so seldom seen in amateur work.  That leaves
+the cheaper switching mosfet's, such as the IRF510.  These are designed
+to be a switch ... ON or OFF.  In between these two states is a small
+linear region.  This is where most QRP PA's are supposedly designed to
+operate.  In the case of the IRF510, the mosfet "turns on" with a gate
+voltage around 3.5-4.0v, and goes fully on (called the "full ohmic on
+region") with around 7-8v on the gate.  The exact ON and OFF voltages on
+the gate will vary tremendously from one IRF510 to the next.  When you
+build an IRF510 PA, you should characterize that particular mosfet so
+you know exactly at what gate voltage drain current starts to flow, and
+if possible, at what gate voltage the drain current becomes maximum, or
+the point of the full-ohmic-on region.
+
+If you spend too much time in the full-ohmic-on region, you are drawing
+excessive current not being transformed to output power, which is
+dissipated across the source-drain junction ... that is, excessive HEATING
+of the IRF510.
+
+> I'm wondering if there would be any benefit to moving the biasing diode so
+> that it would be in physical contact with the heat sink.  This worked
+> wonders in stabilizing a BJT amp, and in keeping it cooler -- I'm wondering
+> if this would also work with MOSFETS.
+
+Per the above, it is more important to characterize the biasing points of
+your IRF510's.  You'll need to monitor BOTH the drain and gate voltages
+simultaneously with either a DVM and/or an oscope.  With no gate voltage,
+the IRF510 will be OFF, such that you will have +12V on the drain (or
+whatever your raw Vcc is).
+
+Connect a 10K or so pot between ground and +12, such that the wiper then
+will go from 0V to +12v.  Connect the wiper to the gate.  Initially set it
+to 0v and record the drain voltage.  Say it is +12v.
+
+Now increase the voltage on the gate until the drain voltage begins to
+drop by the smallest amount you can detect.  Usually 100-200mV should be
+obvious on most DVM's or scopes.  Say this happens with the gate voltage
+at 3.8v.  This is the gate turn-ON voltage: 3.8v
+
+Now increase the gate voltage and watch the drain voltage go down ...
+10v, 8v, 6v, etc.  Be quick at this.  You may need to turn the gate
+voltage to 0v if the IRF510 starts getting too hot doing this before doing
+it again.  What you are looking for is increasing the gate voltage and
+watching for the point where the drain voltage no longer gets any lower.
+Say this happens with a gate voltage of 7.8v and a drain voltage of 1v.
+If you increase the gate voltage to 8v, the drain voltage stays at 1v.
+You are defining the dynamic range of the LINEAR region.  In this case,
+the linear region is a gate voltage from 3.8v to 7.8v ... producing a
+drain voltage that varies from +12v down to +1v.  Another way to look at
+it is the mosfet turns ON with a gate voltage of 3.8v (which means it is
+OFF below 3.8v), and the "switch" (the IRF510) is fully ON with a gate
+voltage of 7.8v.  This is the gate voltage range you MUST operate within!
+But remember, with the gate voltage at 7.8v, producing a drain voltage of
+1v, you are now drawing FULL CURRENT, which for the IRF510 is around 5A!
+(Assuming your power supply can provide that).
+
+For accuracy, there is one additional test you need to perform.  For a
+typical 5W QRP PA running class C (50% efficiency), a drain current of
+about 1A is usually required.  In this case, 12V x 1A = 12W input power,
+yielding an efficiency of 5W/12W = 42% (fairly typical inspite of the
+amazing efficiency claims made by some).  How much current does your rig
+draw to make 5W?  Figure out the efficiency yourself using the above.
+Subtract the receive current from the transmit current to be a purist.
+
+But this 1A is rms, meaning the IFR510 will be drawing about 1.5A on the
+peaks (1A x 1.414).  So you need to find out at what gate voltage produces
+a drain current flow of 1.5A.  To do this, you must monitor the drain
+current flow (either in the drain lead, or between the power supply and
+the rig, providing you subtract out the receive or standby current on
+key  up).
+
+Let's say you parallel some resistors to achieve 1-ohm in the drain lead.
+This means when you drop 1.5V across this 1-ohm resistor, your drain
+current is about 1.5A.
+
+Now increase your pot/gate voltage again until you see your 1.5V drop
+across the 1-ohm resistor, identifying 1.5A of drain current.  Say this
+occurs at 7.4v on the gate.  This identifies the true dynamic range you
+need to operate your IRF510 inside of ... a gate voltage from 3.8V
+(turn ON) to 7.4v for 1.5A peak of drain current.
+
+HERE'S THE BIGGEST MISTAKE MOST IRF510 CIRCUITS MAKE:
+=====================================================
+
+You go keydown for transmit, and adjust the bias for 5W output.  When you
+go keyup, the IRF510 should TURN OFF.  But if the bias is set too high,
+above 3.8v gate turn on in this example, your IRF510 will be drawing
+current, perhaps several hundred mA of current if you don't check.  This,
+of course, is wasted power and needlessly heating up your IRF510.
+
+IRF510's are SWITCHING MOSFET'S ... there is absolutely NO NEED to set
+this so-called "idling current" in a mosfet.  On keyup, there should be
+NONE, ZERO, ZIP drain current flowing in the IRF510.
+
+If you set your bias for 5W out, and you still have drain current flowing
+on key-up, your problem is simple: INSUFFICIENT GATE DRIVE -- not biasing.
+You do not have enough peak-to-peak RF drive going to the gate.  This is
+the biggest problem I've seen with most published IRF510 circuits ...
+insufficient gate drive!
+
+Back to our example, the gate turns ON at 3.8v and the drain draws 1.5A
+at 7.4V.  This is 3.6v difference.  Your RF drive needs to be AT LEAST
+twice this! (or 7.2Vpp).
+
+MY RECOMMENDATION with the above example, is to bias the gate around
+0.5v below the gate turn on voltage ... or 3.8 - 0.5v = 3.3V.  With no
+input signal, this will ensure the IRF510 is completely turned off
+(with the gate turn on voltage of 3.8v).  The input RF drive signal should
+be capacitively coupled, so that with no RF drive, the gate voltage is
+this 3.3v, and the IRF510 is turned OFF.
+
+For proper class C biasing, your input drive should be twice your gate
+input biasing range, that is, twice the 3.8v (turn ON) to 7.4v (Id=1.5A),
+or about 7.2Vpp RF drive at the driver output, feeding the coupling
+capacitor between the drive and gate input circuit.  The first 3.8v will
+do nothing (except help charge up the gate-source capacitance ... about
+150pF).  Then when it exceeds the 3.8v bias, the IRF510 will begin to
+conduct.  When the input drive reaches the maximum of 7.2v, this will be
+the MOMENTARY point of maximum 1.5A drain current, corresponding to about
+1A rms drain current.
+
+So to properly bias an IRF510, you need to know at what gate voltage
+drain current BEGINS to flow, at what gate voltage produces about 1.5A
+of drain current, and at what gate voltage causes FULL current flow.
+In most IRF510's, the difference in gate voltage between 1.5A and full
+drain current is 0.5V or even less.  Fairly critical.
+
+The last problem, of course, is if you have too much gate drive, say
+8-9V peak.  This is because (in our example), once the gate voltage
+exceeds the 7.4v (1.5A drain current point), much above that, the
+IRF510 will be drawing it's full 5A of current over some portion of the
+input sinewave, usually 10-25% of the cycle.  This excess power does
+two bad things:
+1) It saturates the toroidal core being used in the drain circuit for
+   the RFC or transformer primarily (usually a 1:4 bifilar wound
+   transformer).  This inductance can not get rid of all of its stored
+   up current into the output filter before the next drain current cycle
+   begins if it goes into core saturation.  A T50-43 core will saturate
+   around 2A peak current.
+2) The excess current has no place to go except to dissipate in the form
+   of heat across the drain-source junction.  This will make the IRF510
+   VERY, VERY HOT in short order.  The kind of heat that removes your
+   finger print!
+
+In this full-drain current (full-ohmic on) condition, another bad thing
+needs to be pointed out:  We know that the approximate output resistance
+of any PA transistor or mosfet is the famous RL=Vcc^2/2Po, which equates
+to about 14 ohms at 12V and 5W output.  When you enter the full ohmic-on
+region, the output resistance then becomes the Rds of the IRF510, which
+is about 0.4ohms.  Drop nearly 12V at 5A across a 0.4 ohm resistor, and
+buddy -- you're making some major heat. (P=EI = 12V x 5A = 60Watts!).
+The maximum power dissipation of an IRF510 is about 40W.  Ooops ...
+something has got to give.  Poof - there goes your IRF510 after about
+5 seconds of keydown.
+
+So, for each IRF510 you build a PA out of, characterize the gate voltage
+required for gate turn on, 1.5A of drain current, and where it goes into
+it's full ohmic-on region (full drain current flow).  This defines your
+effective dynamic range of RF drive, and the safe operating area you
+should remain within.
+
+If you built an IRF510 from somebody's article that says to set 50mA or so
+of idle current on key-up, immediately drop the gate bias a bit until
+NO DRAIN CURRENT flows.  And if you can't get 5W out at this point, then
+increase your RF drive.  Or, if it's getting too hot, then check that
+you don't have too much drive, drawing more than 1A rms, or that the
+gate is not exceeding 8V (or whatever you measured) on the peaks.
+
+MOSFET PA's make neat amplifiers, but due to the large variations from
+one device to the next, they are not as reliable to build as a BJT
+PA using a 2SC2078 or something.  This is why each IRF510 should be
+characterized before building the PA to establish the proper bias point.
+
+> What do you say? Would this be a cool move or what?
+
+By setting the PROPER BIAS POINT AND RF DRIVE, you shouldn't have to
+piddle around with diode temperature compensation or bias feedback
+networks to make the IRF510 work properly.
+
+It's OK for the IRF510 to get fairly hot after 5-10 seconds of keydown
+with a class C 5W PA, but if you're leaving finger prints ... then it's
+way too hot and it is not properly biased or driven.
+
+72, Paul NA5N
+
++++++++++++++++++++
+Date: Wed, 01 May 2002 23:42:46 GMT
+From: na5n at zianet.com
+To: qrp-l at lehigh.edu
+Subject: [125876] Biasing MOS-FET
+
+Karl F. Larsen writes:
+
+>       For CW where the signal is on or off, you should bias the devices
+> for no drain current in the off condition,
+
+TRUE
+
+> and drive the devices hard enough to saturate drain current when on.
+> This will result in the highest efficiency and of course, least power to > heating.
+
+FALSE.  This is one of the major points of yesterday's post.  You want to
+AVOID driving a mosfet so hard that the drain current saturates, because
+in the case of the IRF510, you will suddenly be drawing 5-6 amps and your
+output load resistance drops to 0.4 ohms - making an impedance match to
+your 50-ohm filter network impossible.  The 5-6A of drain current, even
+if only 10-20% of the RF cycle, raises your average drain current over
+rms by that same percentage, and lowers your efficiency by the same
+percentage.  And with 5-6A flowing through the IRF510, even 10-20% of the
+time, is still a lot of power being converted to nothing but heat inside
+the IRF510.  You want to avoid saturating the drain current at all costs.
+
+Except, of course, in the case of Class E, which exploits operating the
+IRF510 in the saturated drain current region.  But here, you are not
+driving the mosfet with a sinewave, but rather fairly narrow "pulses" to
+convert the 5-6A of drain current to the desired 1A average current.
+Actually, it ends up being less than that for efficiencies in the
+80-90% range.  But that is also due to doing business a bit different
+in the output filter and how one impedance matches the IRF510 to the
+50-ohm filter.  But in any case, you never drive a mosfet in class D, E
+or F with a sinewave.
+
+> need a good filter on the output. If your using push-pull your filter job
+> is easier because even harmonics are very low.
+
+TRUE.  Filtering does need to be more precisely matched to a mosfet PA
+depending upon the exact class of operation it is in.
+
+> I would be careful not to overdrive the amp and flat top.
+
+Well, this is exactly my point, and seemingly opposite of what is said
+above about "driving the amp into the saturated drain current region."
+There is no way to avoid flat topping when you are in the saturation
+region.
+
+This is not in any way an attack on Karl, but to emphasize and explain
+why a mosfet class c amplifier, being fed with a sine wave, should never
+be allowed to drive the mosfet into saturated drain current.  This is a
+common mistake made by those trying to build mosfet PA's, and a major
+reason why the mosfet's go poof, or get extremely hot, or sound chirpy,
+because when you enter the saturated region, it's trying to draw almost
+everything your power supply has to offer.  Even batteries can groan when
+the load changes from 1A to 5A almost instantaneously.
+
+72, Paul NA5N
+
++++++++++++++++++++
+Date: Wed, 1 May 2002 00:55:29 -0700
+From: "Bob Okas" <vintage2 at earthlink.net>
+To: <na5n at zianet.com>, <n2cqr at clix.pt>, <qrp-l at lehigh.edu>
+Subject: [125852] Re: Biasing MOSFETS?
+
+Hi Paul,
+
+    Kudos for such a lucid description of Class C mosfet biasing. I've
+squirreled it away in my na5n folder. However, I do wish to point out that
+the original poster was describing a mosfet push pull *linear* amp.
+Remembering Bill Meara's proclivity for SSB operation on 17m, I suspect he's
+looking to boost his phone signal. If, say, the Ramsey amp was designed for
+operation in the Class AB-ish region, then some current would be drawn by
+the finals during those moments of non-speech keydown.
+
+    I've read W1HUE's article, <http://www.qrparci.org/east/Q_MODS5.html>,
+which dispels the notion I've held that Mosfets have an absolute negative
+temperature coefficient that reduces the device gain as the junction
+temperature increases. So, thermally attaching the biasing diode to the
+heatsink should help, provided that the bias is not initially too high. I
+wonder if Bill could tell us what the gate bias voltage is and the part
+number of those devices? Is there a bias adjustment?
+
+73,
+Bob - W3CD
+
++++++++++++++++++++
+Date: Wed, 01 May 2002 14:25:04 -0400
+From: "Jim Kortge, K8IQY" <jokortge at prodigy.net>
+To: WD8CIV at worldnet.att.net
+Cc: qrp-l at lehigh.edu
+Subject: [125861] Re: Biasing Mosfets
+
+
+At 01:38 PM 5/1/02 -0400, you wrote:
+
+>Folks,
+>
+>Seeing the discussion on MOSFETs has got me thinking (always a dangerous
+>activity) - what is the practical upper frequency limit of an IRF510 (or
+>two) used as a final?
+>
+>Dave
+
+Dave,
+
+Using properly designed feedback networks, they will easily go up
+to 17 meters.  I use a pair of MTP3055E MOSFETs in a small linear
+amplifier that I designed and built for 40 and 17.  I get about
+12 watts out on 40 and about 10 on 17.  The feedback circuits were
+optimized for 17 meter operation.  I believe the QRP Plus rig used
+an IRF510 in the final up to 6 or 10 meters, but I suspect the power
+output suffers terribly up that high.
+
+72,
+
+Jim, K8IQY
+
++++++++++++++++++++
+Date: Wed, 01 May 2002 19:11:49 -0100
+From: Bill Meara <n2cqr at clix.pt>
+To: vintage2 at earthlink.net
+Cc: qrp-l at lehigh.edu
+Subject: [125862] Re: Biasing MOSFETS?
+
+At 12:55 AM 5/1/02 -0700, you wrote:
+>Hi Paul,
+>
+>    Kudos for such a lucid description of Class C mosfet biasing. I've
+>squirreled it away in my na5n folder. However, I do wish to point out that
+>the original poster was describing a mosfet push pull *linear* amp.
+>Remembering Bill Meara's proclivity for SSB operation on 17m, I suspect he's
+>looking to boost his phone signal. If, say, the Ramsey amp was designed for
+>operation in the Class AB-ish region, then some current would be drawn by
+>the finals during those moments of non-speech keydown.
+>
+>    I've read W1HUE's article, <http://www.qrparci.org/east/Q_MODS5.html>,
+>which dispels the notion I've held that Mosfets have an absolute negative
+>temperature coefficient that reduces the device gain as the junction
+>temperature increases. So, thermally attaching the biasing diode to the
+>heatsink should help, provided that the bias is not initially too high. I
+>wonder if Bill could tell us what the gate bias voltage is and the part
+>number of those devices? Is there a bias adjustment?
+
+Bob:  The devices in the Ramsey Amp are MTP3055E.  I'm guessing that they
+are switching MOSFETS similar to those described in Paul's excellent post.
+
+Yea, biasing is more complicated once you leave Class C.  The Ramsey manual
+advises you to monitor the current and adjust bias (no signal in) for 250
+milliamps.  They have a test point in the bias circuit, and with 250 ma,
+they say that point should read 3.2 to 3.5 volts.  I found that the voltage
+reading I got was a bit higher -- about 4.4 volts. This confirms what Paul
+said about variations in bias points.
+
+I notice that as the amp gets warm, the idle current starts going up.  Mine
+goes to about 340 milliamps after a standard length CQ.  I now have a larger
+heat sink and a big old fan (tube type!) on the amp, so it is under control,
+but I'd be happier if the idle current stayed put.
+
+I'm wondering how low I can go with the idle current before I start getting
+non-linear. Lower idle current would obviously keep things cooler.
+
+I also saw the temp stabilization article you cited. Looked kind of
+complicated to me. I wonder if just putting the diode on the heat sink would
+work just as well. I may give this a try.
+
+The amp is working well. Takes me from about 1 watt PEP to about 15-18 watts
+PEP. "Stand by while I kick in the lin-yer OM!"  Lots of fun.
+
+73  Bill  CU2JL   N2CQR
+
++++++++++++++++++++
+Date: Wed, 1 May 2002 14:57:46 -0600 (MDT)
+From: "Karl F. Larsen" <k5di at zianet.com>
+To: qrp-l at lehigh.edu
+Subject: [125867] Biasing MOS-FET
+
+
+        To my way of thinking the bias point is defined by whether the
+amplifier is linear or not. By linear I mean if the input is 10% 50% or
+100% of maximum output the output follows that with good accuracy.
+
+        For CW where the signal is on or off, you should bias the devices
+for no drain current in the off condition, and drive the devices hard
+enough to saturate drain current when on. This will result in the highest
+efficiency and of course, least power to heating. Your for sure going to
+need a good filter on the output. If your using push-pull your filter job
+is easier because even harmonics are very low.
+
+        Now you start to bias the devices into conduction when you need a
+linear amp. This increases loss to heat and the devices get hot. 500 Ma at
+12 volts is 6 watts of constant heat dissipation in the device. If you
+think you need 2 amps of drain bias then the linearity is great but the
+amp gets real hot.
+
+        If I were doing this I would try Class B operation. Here there is
+just a tiny drain current when no signal is present. I would be careful
+not to overdrive the amp and flat top. This is very possible to set up.
+
+
+--
+Yours Truly,
+
+         - Karl F. Larsen, k5di at arrl.net  (505) 524-3303  -
+                        http://www.zianet.com/k5di/
+
+
++++++++++++++++++++
+Date: Wed, 1 May 2002 19:15:35 -0500
+From: Nick Kennedy <nkennedy at tcainternet.com>
+To: "'na5n at zianet.com'" <na5n at zianet.com>,
+        Low Power Amateur Radio Discussion <qrp-l at Lehigh.EDU>
+Subject: [125881] RE: Biasing MOS-FET
+
+
+-----Original Message-----
+From:   na5n at zianet.com [SMTP:na5n at zianet.com]
+Sent:   Wednesday, May 01, 2002 6:43 PM
+To:     Low Power Amateur Radio Discussion
+Subject:        Biasing MOS-FET
+
+
+"You want to AVOID driving a mosfet so hard that the drain current
+saturates, because
+in the case of the IRF510, you will suddenly be drawing 5-6 amps and your
+output load resistance drops to 0.4 ohms - making an impedance match to
+your 50-ohm filter network impossible."
+
+Hmmm ... I always thought you don't impedance match the output device to
+the load in Class C.  And that to do so would reduce the efficiency to 50%.
+ Or at least, restrict it to no greater than that value.
+
+And if you don't drive the Class C amp such as its conduction is
+approximately a square wave, aren't you dwelling in the ohmic region you
+said you wanted to avoid?
+
+72--Nick, WA5BDU
+
+... confused in Arkansas
+
++++++++++++++++++++
+Date: Thu, 2 May 2002 05:45:03 -0600 (MDT)
+From: "Karl F. Larsen" <k5di at zianet.com>
+To: na5n at zianet.com
+Cc: Low Power Amateur Radio Discussion <qrp-l at Lehigh.EDU>
+Subject: [125895] Re: Biasing MOS-FET
+
+Let me address just one issue Paul.
+
+On Wed, 1 May 2002 na5n at zianet.com wrote:
+
+>
+> Karl F. Larsen writes:
+>
+> >     For CW where the signal is on or off, you should bias the devices
+> > for no drain current in the off condition,
+>
+> TRUE
+>
+> > and drive the devices hard enough to saturate drain current when on.
+> > This will result in the highest efficiency and of course, least power to > heating.
+>
+> FALSE.  This is one of the major points of yesterday's post.  You want to
+> AVOID driving a mosfet so hard that the drain current saturates, because
+> in the case of the IRF510, you will suddenly be drawing 5-6 amps and your
+> output load resistance drops to 0.4 ohms - making an impedance match to
+> your 50-ohm filter network impossible.  The 5-6A of drain current, even
+> if only 10-20% of the RF cycle, raises your average drain current over
+> rms by that same percentage, and lowers your efficiency by the same
+> percentage.  And with 5-6A flowing through the IRF510, even 10-20% of the
+> time, is still a lot of power being converted to nothing but heat inside
+> the IRF510.  You want to avoid saturating the drain current at all costs.
+>
+
+        I agree that if you saturate a fet the current is a maximum amount
+the device can draw but this is a DC analysis of the output impedance.
+Looking at the RF impedance it's actually defined from the median
+impedance between cutoff which is very high and effective zero in
+saturation. Actually you need a set of load lines like we had in the old
+tube days. Might be fun to make them and see how they look.
+
+        If the IRF510 has a gate type responce to it's input then it won't
+work very well in RF service. I'm pretty sure that's what the device
+is used for in the mass market.
+
+Until we can get some AC analysis of this device I'm not ready to say that
+you can't match the IRF510 output because I'm doing that with my SMK-1 5
+watt amp which uses this device... and it works. Doesn't get hot at all.
+
+
+
+--
+Yours Truly,
+
+         - Karl F. Larsen, k5di at arrl.net  (505) 524-3303  -
+
++++++++++++++++++++
+Date: Thu, 2 May 2002 12:53:11 -0700
+From: "Glen Leinweber" <leinwebe at mcmail.cis.mcmaster.ca>
+To: "David Hinerman" <WD8CIV at worldnet.att.net>
+Cc: "qrp-l" <qrp-l at lehigh.edu>
+Subject: [125904] HF MOSfet amps - capacitance
+Message-ID: <000801c1f212$fd54a2c0$07ea7182 at mcmaster.ca>
+MIME-Version: 1.0
+Content-Type: text/plain;
+        charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+Dave Hineman mentions that not all MOSfets are
+equal - for example, the IRF840 has an input
+capacitance at the gate of 1300 pf, while the
+IRF510 that we commonly see has 135 pf.
+
+Don't take these numbers as absolute. Capacitance
+changes with bias, and doesn't include Miller
+capacitance from gate to drain.
+
+Why does capacitance change from FET to FET?
+These devices have many hundreds or thousands
+of FETs all running in parallel, right on that single
+chip. The heftier FETs have more in parallel than
+the less-powerful ones. You can usually tell by the
+full-ON channel resistance....when this number is
+a small fraction of an ohm, its a BIG device, with
+a lotta fets in parallel. The IRF510 has a channel
+resistance (fully on) of about half an ohm. Not
+so many fets.
+    More parallel fets means more capacitance -
+capacitances in parallel add. Its that simple. We
+should use MOSfets in HF amps with low
+capacitance - they're easier to drive. The IRF510
+on-resistance of half an ohm is plenty low enough
+for QRP with 12v supply. For a really powerful amp,
+you'd have to use a higher supply voltage, or a
+heftier MOSfet (and be prepared to drive its
+larger input capacitance with a more powerful
+driver stage).
+
+    Logic-level MOSfets can help too - they turn
+on with lower bias voltages, and are FULLY on
+when the gate is only +5v (instead of +10v for
+non-logic-level MOSfets).
+    If you only have to charge gate capacitance
+to 5v instead of 10v, less drive power is required.
+So a IRFL510 is better than standard IRF510.
+
++++++++++++++++++++
+
+Date: Thu, 2 May 2002 19:09:02 -0700
+From: "Glen Leinweber" <leinwebe at mcmail.cis.mcmaster.ca>
+To: <na5n at zianet.com>
+Cc: "qrp-l" <qrp-l at lehigh.edu>
+Subject: [125915] Re: Biasing MOSFETS?
+
+Paul suggest some great ways to characterize a MOSfet's
+biasing characteristics, when used as a RF power amp.
+
+Paul also suggests some bad things that can happen when
+over-driving a MOSfet...one of which is saturation of the
+RFC choke feeding in DC power. Yes, that's bad, wasting
+power in heat (in the choke).
+    But you won't waste much power heating the FET.
+When you overdrive a MOSfet (gate voltage swinging up
+over approx +7v), it does turn on hard, and looks like
+a small, fractional-ohm resistor. But this only happens
+for a fraction of a microsecond. During that time, the
+MOSfet dissipates very little power, since its drain voltage
+is very nearly zero - same as the source. No voltage
+across the FET?...no power dissipated - even though
+there may be a lotta current running thru.
+    Yes, if you LEAVE the gate at +8v, current builds
+after a few microseconds and something soon gives up
+the smoke - maybe the FET, maybe the choke. But
+that's not how it runs in an amp - the FET only asks
+for current in short, sub-microsecond pulses. So Paul's
+smoky scenario when overdriving is not likely, if you
+stay within reasonable limits....
+
+As long as the choke can stand the current, overdriving
+a MOSfet likely improves efficiency, making the FET
+run cooler. There'll be a bit more current in the choke,
+and a bit more current in the FET, but that's turned over
+to the filter between FET and antenna to be turned into
+useful RF power.
+The real neat thing about a switching type PA, is that
+when the fet is hard ON, with its drain clamped firmly
+down at zero volts, its not dissipating much power.
+Yes, current is building in the choke, and you can't
+stay here too long. We'll only be here for half a cycle.
+Then the FET goes OFF - bang - current drops to
+zero and the drain voltage starts swinging up. But
+again, the FET dissipates no power, because there's
+no current thru it. Beauty! When its ON - little power
+dissipated - when its OFF - no power dissipated.
+Things aren't THAT perfect - the FET takes a bit of
+time to switch ON & OFF. During that switching time
+it dissipates power. And some of the drive power
+coming in the gate goes into heat too. And when
+its ON, that small ohmic resistance dissipates a
+bit of power (an amp thru half ohm is half watt, and
+for only half the time - a total of quarter watt).
+
+Overdriving has limits: your gate voltage swing must
+stay below a swing from +20 to -20 v, or you'll puncture
+the gate oxide (blown fet). And overdriving too far
+wastes drive power too.
+
++++++++++++++++++++
+Date: Fri, 03 May 2002 15:15:14 GMT
+From: na5n at zianet.com
+To: qrp-l at lehigh.edu
+Subject: [125927] More MOSFET stuff
+
+Gang,
+Glen's post is excellent, and it addresses some of the discussion I have
+been having with several of you privately, worth repeating here.
+
+This discussion began about questioning why a certain MOSFET PA was
+running so darn hot.  This is usually an indication of poor biasing or
+overdriving the gate ... that is, for some percentage of the input RF,
+you are drawing full drain current.  If this is a relatively small part
+of the input sinewave, it's usually not a problem.  Helping people with
+their mosfet PA's over the years, particularly those who built the
+38-Special add-on mosfet PA (which was initially poorly biased), the main
+problem I see is people increasing the gate bias to achieve maximum
+output power.  Problem with this approach is when the input drive goes
+to zero, the gate may be sitting with 4v or so bias, sufficient to keep
+the mosfet drawing significant current.  With full input drive, it may
+drive the gate into the 7-8v region allowing full drain current.  With a
+SINEWAVE, if this full-drain current is occurring for too long each cycle,
+you can dissipate a lot of power within the mosfet, which if severe
+enough, will of course cause damage to the device.  Therefore in my
+original post, I was trying to describe how to determine the useful
+dynamic range of a mosfet gate drive, since every mosfet tends to have it's
+own parameters.
+
+A second point: while I mentioned that when entering the full drain
+current region, the drain-source resistance drops to about 0.4 ohms for
+the IRF510, this occurs ONLY for the period of time of full drain current,
+not all the time.  The overall output resistance of the mosfet will be the
+AVERAGE of the resistances seen over each cycle, and thus will be a bit
+lower than the RL=Vcc^2/2Po value, not 0.4 ohms.  Of course the longer
+you stay in the full drain current region, the lower your AVERAGE output
+resistance will be.  Likewise, when in the full drain current region,
+drawing around 5A, the AVERAGE drain current for each cycle will be
+closer to the 1A (at 5W) level.  Again, the longer you stay in the
+full drain current region, the higher the AVERAGE drain current will be,
+but will never be excessively above 1A average.  The problem, however, is
+the momentary "spikes" of 5A drain current can put a large strain on the
+RFC feeding dc to the drain, possibly causing core saturation, and
+another set of problems for the PA and output filtering.
+
+Keep in mind, the above is based on feeding the mosfet with a SINEWAVE
+input.  The more efficient mosfet PA's, such as those discussed by Glen,
+are based on driving the mosfet with SQUAREWAVES.  This helps assure that
+when the gate signal goes positive, driving the device into full drain
+current, the drain voltage is very close to 0V for very little heat
+dissipation in the device.  This is difficult to achieve with a sinewave
+input, as there is a delay between the gate drive signal and the drain
+signal due to charging up the relatively large (150pF) gate input
+capacitance.  With a square wave, you are charging up this gate capacitance
+very quickly, while with a sinewave input, you are charging it more
+slowly, causing a longer delay, such that it is difficult to get maximum
+drain current to coincide with zero drain voltage for a very long.  With
+a squarewave drive, max. drain current at 0V drain voltage can exist for
+20-30% of the cycle, in effect, expending virtually no power.
+
+With a sinewave drive, you vary the mosfet output power by controlling
+the peak-peak voltage of the gate drive.  The more drive, the more output
+power (until you saturate in the full drain current region).  With a
+squarewave drive, you control output power by controlling the duty cycle
+of the squarewave.  That is, if the drive signal is "hi" for 10% of the
+cycle, you are drawing full drain current for only 10% of the time and a
+relatively low average output power results.  Increasing the input duty
+cycle to 30%, means you are drawing full drain current for 30% of the
+time, for significantly more output power.  This is called PWM, or "pulse
+width modulation" technique.  In this case, we are not changing the
+pulse width fast for the purpose of modulating the carrier, but changing
+the pulse width on very slow time scales to change the output power.  On
+a typical class E PA I have built using an IRF510, output power varies
+from about 3W to 9W by varying the input duty cycle from about 10-40%.
+Less than 10%, the mosfet gets unstable with high phase noise -- above
+40%, drain current starts flowing so much of the time, you can stray
+away from having full drain current at 0V drain voltage, and thus the
+efficiency starts to suffer.  In the 10-40% drive, efficiencies in the
+80% range are seen.  This means the IRF510 is comfortably warm even with
+several minutes of solid keydown.  It also means it's drawing far less
+battery current to make 5W than a PA running 50%, obviously.
+
+I'm glad many of you are finding this discussion useful and informative.
+Feel free to share with us your experiences.  Mosfet's are fun devices,
+and capable of making a nice QRP PA in a properly designed circuit.  And
+many of these points discussed by myself and others is why some people
+claim they are making 5W and the IRF510 is scarcely warm, while others
+are cooking eggs at 3W.
+
+72, Paul NA5N
+
+++++++++++++++++
+Date: Mon, 6 May 2002 12:48:52 -0500
+From: "Walter AG5P" <walter at accessus.net>
+To: "Low Power Amateur Radio Discussion" <qrp-l at lehigh.edu>
+Subject: [126222] FETs and building circuits
+Message-ID: <015f01c1f526$ac599940$a3476ad8 at default>
+MIME-Version: 1.0
+Content-Type: text/plain;
+        charset="iso-8859-1"
+Content-Transfer-Encoding: 7bit
+
+Hi Everyone, the recent FET thread has been great for
+getting me into more building. Doing some searching to
+find out different ways and means to use FETs in the QRP
+projects has lead me to the following website. All I can say
+is WoW, these folks are doing some serious transmitting with
+FETs. Now, before you yell at me, just remember that they
+are using modules composed of 4 FET units and then
+combining them into serious high power Ham radio. Just
+using one FET in the QRP projects with the Fairchild FQA11N90
+which in small quantities cost around $2.50 is pretty
+QRP to my shack budget.
+
+An interesting comment from the author, "Right up front, I need to
+say Don't build one of these if you don't have a good oscilloscope!
+You will absolutely need a dual-trace scope to really ensure that
+your transmitter is working correctly." That just amplifies what
+Paul Harden, NA5N, has been telling us, is to get the circuit
+components properly selected.
+
+Take a look at http://www.netway.com/~stevec/ham/classe.htm#200w
+there are also some great ideas at monitoring your FET circuits
+and keeping them happy.
+
+72 / 73 Walter, AG5P
+
++++++++++++++++

@@ -1,0 +1,730 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr User 11836 8693
+encoding utf-8
+Sheet 1 1
+Title "Easy-PA-With-Pluggable-LPF"
+Date "2021-08-02"
+Rev "v0.01"
+Comp "Author: Dhiru Kholia (VU3CER)"
+Comment1 ""
+Comment2 "Note: Tuned for 20m band. VDC is >= 22 volts."
+Comment3 "Uses ideas from NA5N, Sandeep VU3SXT, PY2OHH, NB6M, LU2HES, Hans Summers, VU2ESE"
+Comment4 "Robust Class-C / Class-D Single-ended IRF510 powered HF PA"
+$EndDescr
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:+6V-power-EWB-PA-LPF-Combo-v2-rescue #PWR06
+U 1 1 60401169
+P 3820 1210
+F 0 "#PWR06" H 3820 1060 50  0001 C CNN
+F 1 "+6V" H 3835 1383 50  0000 C CNN
+F 2 "" H 3820 1210 50  0001 C CNN
+F 3 "" H 3820 1210 50  0001 C CNN
+	1    3820 1210
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 5730 6000 5440
+Wire Wire Line
+	3820 2630 3820 2610
+Connection ~ 3820 2630
+Wire Wire Line
+	4140 2630 4140 2640
+Wire Wire Line
+	3820 2630 4140 2630
+Wire Wire Line
+	3820 2650 3820 2630
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:PWR_FLAG-power-EWB-PA-LPF-Combo-v2-rescue #FLG0102
+U 1 1 607BC2FE
+P 4140 2640
+F 0 "#FLG0102" H 4140 2715 50  0001 C CNN
+F 1 "PWR_FLAG" H 4140 2813 50  0000 C CNN
+F 2 "" H 4140 2640 50  0001 C CNN
+F 3 "~" H 4140 2640 50  0001 C CNN
+	1    4140 2640
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	4050 1510 4050 1450
+Wire Wire Line
+	3820 1510 4050 1510
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:PWR_FLAG-power-EWB-PA-LPF-Combo-v2-rescue #FLG0101
+U 1 1 607AEC92
+P 4050 1450
+F 0 "#FLG0101" H 4050 1525 50  0001 C CNN
+F 1 "PWR_FLAG" H 4050 1623 50  0000 C CNN
+F 2 "" H 4050 1450 50  0001 C CNN
+F 3 "~" H 4050 1450 50  0001 C CNN
+	1    4050 1450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3120 1510 3120 1710
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0137
+U 1 1 6098B986
+P 3120 1710
+F 0 "#PWR0137" H 3120 1510 50  0001 C CNN
+F 1 "GND" H 3124 1556 50  0000 C CNN
+F 2 "" H 3120 1660 50  0001 C CNN
+F 3 "" H 3120 1660 50  0001 C CNN
+	1    3120 1710
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3820 1510 3820 1610
+Connection ~ 3820 1510
+Wire Wire Line
+	3620 1510 3820 1510
+Wire Wire Line
+	3820 1210 3820 1510
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:CAP-pspice-EWB-PA-LPF-Combo-v2-rescue C6
+U 1 1 6098B985
+P 3370 1510
+F 0 "C6" V 3055 1510 50  0000 C CNN
+F 1 "100nF" V 3146 1510 50  0000 C CNN
+F 2 "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm" H 3370 1510 50  0001 C CNN
+F 3 "~" H 3370 1510 50  0001 C CNN
+	1    3370 1510
+	0    1    1    0   
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0132
+U 1 1 602B0E88
+P 3820 2650
+F 0 "#PWR0132" H 3820 2450 50  0001 C CNN
+F 1 "GND" H 3824 2496 50  0000 C CNN
+F 2 "" H 3820 2600 50  0001 C CNN
+F 3 "" H 3820 2600 50  0001 C CNN
+	1    3820 2650
+	1    0    0    -1  
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:7400-74xx-EWB-PA-LPF-Combo-v2-rescue U1
+U 5 1 602B0E87
+P 3820 2110
+F 0 "U1" H 4050 2156 50  0000 L CNN
+F 1 "74ACT00" H 4050 2065 50  0000 L CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3820 2110 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn7400" H 3820 2110 50  0001 C CNN
+	5    3820 2110
+	1    0    0    -1  
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0126
+U 1 1 60723990
+P 6600 6280
+F 0 "#PWR0126" H 6600 6080 50  0001 C CNN
+F 1 "GND" H 6604 6126 50  0000 C CNN
+F 2 "" H 6600 6230 50  0001 C CNN
+F 3 "" H 6600 6230 50  0001 C CNN
+	1    6600 6280
+	1    0    0    -1  
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:IRF540N-Transistor_FET-EWB-PA-LPF-Combo-v2-rescue Q1
+U 1 1 605F1A6A
+P 5900 5240
+F 0 "Q1" H 6120 5360 50  0000 L CNN
+F 1 "IRF510" H 6120 5230 50  0000 L CNN
+F 2 "Package_TO_SOT_THT:TO-220-3_Vertical" H 6150 5165 50  0001 L CIN
+F 3 "http://www.irf.com/product-info/datasheets/data/irf540n.pdf" H 5900 5240 50  0001 L CNN
+	1    5900 5240
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:L_Core_Ferrite RFC1
+U 1 1 60E5EC1D
+P 6000 4310
+F 0 "RFC1" V 5870 4370 50  0000 R CNN
+F 1 "FT37-43 5 or 6T (2.5 - 15uH OK)" V 6140 5040 50  0000 R CNN
+F 2 "Inductor_THT:L_Toroid_Vertical_L10.0mm_W5.0mm_P5.08mm" H 6000 4310 50  0001 C CNN
+F 3 "~" H 6000 4310 50  0001 C CNN
+	1    6000 4310
+	-1   0    0    1   
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:C-Device-EWB-PA-LPF-Combo-v2-rescue C4
+U 1 1 6068F2D2
+P 6440 3820
+F 0 "C4" H 6210 3920 50  0000 L CNN
+F 1 "100nF" H 6170 3700 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm" H 6478 3670 50  0001 C CNN
+F 3 "~" H 6440 3820 50  0001 C CNN
+	1    6440 3820
+	1    0    0    -1  
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0103
+U 1 1 60690032
+P 6440 4050
+F 0 "#PWR0103" H 6440 3800 50  0001 C CNN
+F 1 "GND" H 6445 3877 50  0001 C CNN
+F 2 "" H 6440 4050 50  0001 C CNN
+F 3 "" H 6440 4050 50  0001 C CNN
+	1    6440 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6440 4050 6440 3970
+Wire Wire Line
+	9900 4930 10260 4930
+Wire Wire Line
+	9900 5180 10260 5180
+Wire Wire Line
+	9900 5480 10260 5480
+Wire Wire Line
+	9900 5730 10260 5730
+Wire Wire Line
+	10260 4930 10260 5050
+Wire Wire Line
+	10260 5730 10260 5610
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:uSDX_LPF_BAND_MODULE-uSDX_LPF_BAND_Module-SDR_SSB-rescue-EWB-PA-LPF-Combo-v2-rescue U2
+U 1 1 6102B655
+P 8750 5330
+F 0 "U2" H 8725 6005 50  0000 C CNN
+F 1 "uSDX_LPF_BAND_MODULE" H 8725 5914 50  0000 C CNN
+F 2 "footprints:uSDX_LPF_Band_Module" H 8750 5530 50  0001 C CNN
+F 3 "" H 8750 5530 50  0001 C CNN
+	1    8750 5330
+	-1   0    0    -1  
+$EndComp
+NoConn ~ 7650 4880
+NoConn ~ 7650 5180
+$Comp
+L power:GND #PWR0101
+U 1 1 613244DF
+P 1930 4580
+F 0 "#PWR0101" H 1930 4330 50  0001 C CNN
+F 1 "GND" H 1935 4407 50  0000 C CNN
+F 2 "" H 1930 4580 50  0001 C CNN
+F 3 "" H 1930 4580 50  0001 C CNN
+	1    1930 4580
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1690 5140 1840 5140
+Wire Wire Line
+	1690 4480 1690 5140
+Wire Wire Line
+	1930 4480 1690 4480
+$Comp
+L Connector:Conn_Coaxial RF_IN1
+U 1 1 60FC9604
+P 1500 5340
+F 0 "RF_IN1" H 1520 5490 50  0000 C CNN
+F 1 "Conn_Coaxial" H 1580 5480 50  0001 C CNN
+F 2 "Connector_Coaxial:SMA_Amphenol_901-144_Vertical" H 1500 5340 50  0001 C CNN
+F 3 " ~" H 1500 5340 50  0001 C CNN
+	1    1500 5340
+	-1   0    0    -1  
+$EndComp
+$Comp
+L 74xx:7400 U1
+U 1 1 5ED3A73C
+P 2140 5240
+F 0 "U1" H 2140 5565 50  0000 C CNN
+F 1 "74ACT00" H 2140 5474 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 2140 5240 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn7400" H 2140 5240 50  0001 C CNN
+	1    2140 5240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 5340 1840 5340
+Wire Wire Line
+	3640 5240 3950 5240
+Wire Wire Line
+	2440 5240 2720 5240
+$Comp
+L Custom_Library:7400 U1
+U 2 1 6102B653
+P 3340 5240
+F 0 "U1" H 3340 5565 50  0000 C CNN
+F 1 "74ACT00" H 3340 5474 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3340 5240 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn7400" H 3340 5240 50  0001 C CNN
+	2    3340 5240
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3040 5240 3040 5340
+Connection ~ 3040 5240
+Wire Wire Line
+	3040 5140 3040 5240
+Text Notes 2240 4450 0    50   ~ 0
+D11 TX Pin (PB0), High => TX ON
+$Comp
+L Connector_Generic:Conn_01x02 TX_ON1
+U 1 1 613111C1
+P 2130 4480
+F 0 "TX_ON1" H 2240 4350 50  0000 L CNN
+F 1 "Conn_01x02" H 2210 4381 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2130 4480 50  0001 C CNN
+F 3 "~" H 2130 4480 50  0001 C CNN
+	1    2130 4480
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR0102
+U 1 1 614C094A
+P 1500 5540
+F 0 "#PWR0102" H 1500 5290 50  0001 C CNN
+F 1 "GND" H 1505 5367 50  0000 C CNN
+F 2 "" H 1500 5540 50  0001 C CNN
+F 3 "" H 1500 5540 50  0001 C CNN
+	1    1500 5540
+	1    0    0    -1  
+$EndComp
+$Comp
+L Custom_Library:7400 U1
+U 3 1 6104D62F
+P 3340 5870
+F 0 "U1" H 3340 6195 50  0000 C CNN
+F 1 "74ACT00" H 3340 6104 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3340 5870 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn7400" H 3340 5870 50  0001 C CNN
+	3    3340 5870
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3040 5770 3040 5870
+Wire Wire Line
+	2720 5870 3040 5870
+Connection ~ 2720 5240
+Wire Wire Line
+	2720 5240 3040 5240
+Connection ~ 3040 5870
+Wire Wire Line
+	3040 5870 3040 5970
+Wire Wire Line
+	3640 6570 3950 6570
+$Comp
+L 74xx:7400 U1
+U 4 1 6105693D
+P 3340 6570
+F 0 "U1" H 3340 6895 50  0000 C CNN
+F 1 "74ACT00" H 3340 6804 50  0000 C CNN
+F 2 "Package_DIP:DIP-14_W7.62mm_LongPads" H 3340 6570 50  0001 C CNN
+F 3 "http://www.ti.com/lit/gpn/sn7400" H 3340 6570 50  0001 C CNN
+	4    3340 6570
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3040 6470 3040 6570
+Wire Wire Line
+	3040 6570 2720 6570
+Wire Wire Line
+	3040 6570 3040 6670
+Connection ~ 3040 6570
+Wire Wire Line
+	2720 5240 2720 5870
+Connection ~ 2720 5870
+Wire Wire Line
+	2720 5870 2720 6570
+Connection ~ 3950 5240
+Wire Wire Line
+	3950 5240 3950 5870
+Connection ~ 3950 5870
+Wire Wire Line
+	3950 5870 3950 6570
+Wire Wire Line
+	3640 5870 3950 5870
+$Comp
+L Device:R_Small R3
+U 1 1 61144232
+P 5060 6070
+F 0 "R3" V 4864 6070 50  0000 C CNN
+F 1 "10k" V 4955 6070 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" H 5060 6070 50  0001 C CNN
+F 3 "~" H 5060 6070 50  0001 C CNN
+	1    5060 6070
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R_Small R4
+U 1 1 61145775
+P 5410 6070
+F 0 "R4" V 5214 6070 50  0000 C CNN
+F 1 "10k" V 5305 6070 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" H 5410 6070 50  0001 C CNN
+F 3 "~" H 5410 6070 50  0001 C CNN
+	1    5410 6070
+	0    1    1    0   
+$EndComp
+$Comp
+L power:GND #PWR01
+U 1 1 6114783C
+P 5250 6440
+F 0 "#PWR01" H 5250 6190 50  0001 C CNN
+F 1 "GND" H 5255 6267 50  0000 C CNN
+F 2 "" H 5250 6440 50  0001 C CNN
+F 3 "" H 5250 6440 50  0001 C CNN
+	1    5250 6440
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 6440 5250 6370
+Wire Wire Line
+	5160 6070 5250 6070
+$Comp
+L Device:C_Small C3
+U 1 1 6114C695
+P 5250 6270
+F 0 "C3" H 5020 6280 50  0000 L CNN
+F 1 "10nF" H 5000 6170 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm" H 5250 6270 50  0001 C CNN
+F 3 "~" H 5250 6270 50  0001 C CNN
+	1    5250 6270
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 6170 5250 6070
+Connection ~ 5250 6070
+Wire Wire Line
+	5250 6070 5310 6070
+Text Notes 4920 5730 0    50   ~ 0
+Bias Control Via PWM
+Text Notes 5670 5930 0    50   ~ 0
+PWM via PB2
+$Comp
+L Connector_Generic:Conn_01x02 PWM1
+U 1 1 61187DF9
+P 5880 6070
+F 0 "PWM1" V 6000 5920 50  0000 L CNN
+F 1 "Conn_01x02" H 5960 5971 50  0001 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 5880 6070 50  0001 C CNN
+F 3 "~" H 5880 6070 50  0001 C CNN
+	1    5880 6070
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5680 6070 5510 6070
+Wire Wire Line
+	5680 6170 5680 6440
+$Comp
+L power:GND #PWR0108
+U 1 1 61187DF0
+P 5680 6440
+F 0 "#PWR0108" H 5680 6190 50  0001 C CNN
+F 1 "GND" H 5685 6267 50  0000 C CNN
+F 2 "" H 5680 6440 50  0001 C CNN
+F 3 "" H 5680 6440 50  0001 C CNN
+	1    5680 6440
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6000 5730 6600 5730
+Connection ~ 6600 5730
+$Comp
+L Connector_Generic:Conn_01x02 PA1
+U 1 1 61332085
+P 5670 1620
+F 0 "PA1" H 5750 1612 50  0000 L CNN
+F 1 "VDC" H 5750 1521 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 5670 1620 50  0001 C CNN
+F 3 "~" H 5670 1620 50  0001 C CNN
+	1    5670 1620
+	1    0    0    -1  
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0109
+U 1 1 61332091
+P 5470 1840
+F 0 "#PWR0109" H 5470 1640 50  0001 C CNN
+F 1 "GND" H 5474 1686 50  0000 C CNN
+F 2 "" H 5470 1790 50  0001 C CNN
+F 3 "" H 5470 1790 50  0001 C CNN
+	1    5470 1840
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+VDC #PWR0110
+U 1 1 61334657
+P 5470 1620
+F 0 "#PWR0110" H 5470 1520 50  0001 C CNN
+F 1 "+VDC" V 5470 1849 50  0000 L CNN
+F 2 "" H 5470 1620 50  0001 C CNN
+F 3 "" H 5470 1620 50  0001 C CNN
+	1    5470 1620
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	5470 1840 5470 1720
+$Comp
+L Device:R R2
+U 1 1 61370EAF
+P 5340 5240
+F 0 "R2" V 5144 5240 50  0000 C CNN
+F 1 "4.7" V 5235 5240 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" H 5340 5240 50  0001 C CNN
+F 3 "~" H 5340 5240 50  0001 C CNN
+	1    5340 5240
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3950 5240 4100 5240
+$Comp
+L pspice:CAP C1
+U 1 1 6102B654
+P 4350 5240
+F 0 "C1" V 4035 5240 50  0000 C CNN
+F 1 "10nF" V 4126 5240 50  0000 C CNN
+F 2 "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm" H 4350 5240 50  0001 C CNN
+F 3 "~" H 4350 5240 50  0001 C CNN
+	1    4350 5240
+	0    1    1    0   
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0111
+U 1 1 613EA201
+P 5050 4240
+F 0 "#PWR0111" H 5050 3990 50  0001 C CNN
+F 1 "GND" H 5200 4160 50  0001 C CNN
+F 2 "" H 5050 4240 50  0001 C CNN
+F 3 "" H 5050 4240 50  0001 C CNN
+	1    5050 4240
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:+VDC #PWR0112
+U 1 1 6142B900
+P 6000 3260
+F 0 "#PWR0112" H 6000 3160 50  0001 C CNN
+F 1 "+VDC" H 6000 3535 50  0000 C CNN
+F 2 "" H 6000 3260 50  0001 C CNN
+F 3 "" H 6000 3260 50  0001 C CNN
+	1    6000 3260
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6600 5730 6600 6280
+$Comp
+L Device:C_Small C2
+U 1 1 60E92E50
+P 6610 4750
+F 0 "C2" V 6381 4750 50  0000 C CNN
+F 1 "100nF" V 6472 4750 50  0000 C CNN
+F 2 "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm" H 6610 4750 50  0001 C CNN
+F 3 "~" H 6610 4750 50  0001 C CNN
+	1    6610 4750
+	0    1    1    0   
+$EndComp
+$Comp
+L power:PWR_FLAG #FLG0103
+U 1 1 614BF656
+P 5470 1300
+F 0 "#FLG0103" H 5470 1375 50  0001 C CNN
+F 1 "PWR_FLAG" H 5470 1473 50  0000 C CNN
+F 2 "" H 5470 1300 50  0001 C CNN
+F 3 "~" H 5470 1300 50  0001 C CNN
+	1    5470 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5470 1300 5470 1620
+Connection ~ 5470 1620
+Wire Wire Line
+	6000 4160 6000 3620
+Connection ~ 6000 4750
+Wire Wire Line
+	6000 4750 6000 5040
+Wire Wire Line
+	6000 4460 6000 4750
+Connection ~ 4820 5240
+Wire Wire Line
+	4600 5240 4820 5240
+Wire Wire Line
+	4820 5240 4820 6070
+Wire Wire Line
+	4820 6070 4960 6070
+$Comp
+L Device:R_POT RV1
+U 1 1 61088B73
+P 5050 4090
+F 0 "RV1" H 4980 4044 50  0000 R CNN
+F 1 "10k" H 4980 4135 50  0000 R CNN
+F 2 "Potentiometer_THT:Potentiometer_Bourns_3386P_Vertical" H 5050 4090 50  0001 C CNN
+F 3 "~" H 5050 4090 50  0001 C CNN
+	1    5050 4090
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	5050 3940 5050 3620
+Wire Wire Line
+	4900 4090 4820 4090
+Wire Wire Line
+	4820 4860 4820 5240
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:R-Device-EWB-PA-LPF-Combo-v2-rescue R1
+U 1 1 60EADA65
+P 4820 4710
+F 0 "R1" H 4890 4756 50  0000 L CNN
+F 1 "10k" H 4890 4665 50  0000 L CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical" V 4750 4710 50  0001 C CNN
+F 3 "~" H 4820 4710 50  0001 C CNN
+	1    4820 4710
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4820 4090 4820 4560
+Wire Wire Line
+	6000 4750 6510 4750
+Wire Wire Line
+	6440 3670 6440 3620
+Wire Wire Line
+	6440 3620 6000 3620
+Connection ~ 6000 3620
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:C-Device-EWB-PA-LPF-Combo-v2-rescue C5
+U 1 1 611E4538
+P 4630 4240
+F 0 "C5" H 4400 4340 50  0000 L CNN
+F 1 "1uF" H 4400 4130 50  0000 L CNN
+F 2 "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm" H 4668 4090 50  0001 C CNN
+F 3 "~" H 4630 4240 50  0001 C CNN
+	1    4630 4240
+	1    0    0    -1  
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0113
+U 1 1 611E453E
+P 4630 4390
+F 0 "#PWR0113" H 4630 4140 50  0001 C CNN
+F 1 "GND" H 4635 4217 50  0001 C CNN
+F 2 "" H 4630 4390 50  0001 C CNN
+F 3 "" H 4630 4390 50  0001 C CNN
+	1    4630 4390
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4820 4090 4630 4090
+Connection ~ 4820 4090
+Wire Wire Line
+	4820 5240 5190 5240
+Wire Wire Line
+	5490 5240 5700 5240
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0107
+U 1 1 610E4D24
+P 1830 2280
+F 0 "#PWR0107" H 1830 2080 50  0001 C CNN
+F 1 "GND" H 1834 2126 50  0000 C CNN
+F 2 "" H 1830 2230 50  0001 C CNN
+F 3 "" H 1830 2230 50  0001 C CNN
+	1    1830 2280
+	1    0    0    -1  
+$EndComp
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:+6V-power-EWB-PA-LPF-Combo-v2-rescue #PWR0105
+U 1 1 610B9014
+P 1830 2180
+F 0 "#PWR0105" H 1830 2030 50  0001 C CNN
+F 1 "+6V" H 1845 2346 40  0000 C CNN
+F 2 "" H 1830 2180 50  0001 C CNN
+F 3 "" H 1830 2180 50  0001 C CNN
+	1    1830 2180
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Connector_Generic:Conn_01x02 6V1
+U 1 1 60ED36EB
+P 2030 2180
+F 0 "6V1" H 2110 2172 50  0000 L CNN
+F 1 "6V" H 2110 2081 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 2030 2180 50  0001 C CNN
+F 3 "~" H 2030 2180 50  0001 C CNN
+	1    2030 2180
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6600 5730 7650 5730
+Wire Wire Line
+	7550 4750 7550 5430
+Wire Wire Line
+	7550 5430 7650 5430
+Wire Wire Line
+	6710 4750 7550 4750
+$Comp
+L Connector:Conn_Coaxial RF_OUT1
+U 1 1 610F637F
+P 10600 5610
+F 0 "RF_OUT1" H 10620 5760 50  0000 C CNN
+F 1 "Conn_Coaxial" H 10680 5750 50  0001 C CNN
+F 2 "Connector_Coaxial:SMA_Amphenol_901-144_Vertical" H 10600 5610 50  0001 C CNN
+F 3 " ~" H 10600 5610 50  0001 C CNN
+	1    10600 5610
+	1    0    0    1   
+$EndComp
+Wire Wire Line
+	10400 5610 10260 5610
+Connection ~ 10260 5610
+Wire Wire Line
+	10260 5610 10260 5480
+Wire Wire Line
+	10260 5050 10430 5050
+Wire Wire Line
+	10600 5050 10600 5410
+Connection ~ 10260 5050
+Wire Wire Line
+	10260 5050 10260 5180
+$Comp
+L EWB-PA-LPF-Combo-v2-rescue:GND-power-EWB-PA-LPF-Combo-v2-rescue #PWR0104
+U 1 1 612063B8
+P 10430 5110
+F 0 "#PWR0104" H 10430 4910 50  0001 C CNN
+F 1 "GND" H 10434 4956 50  0000 C CNN
+F 2 "" H 10430 5060 50  0001 C CNN
+F 3 "" H 10430 5060 50  0001 C CNN
+	1    10430 5110
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10430 5110 10430 5050
+Connection ~ 10430 5050
+Wire Wire Line
+	10430 5050 10600 5050
+Wire Wire Line
+	6000 3620 6000 3260
+Wire Wire Line
+	6000 3620 5760 3620
+$Comp
+L power:GND #PWR0106
+U 1 1 612DE350
+P 5460 3920
+F 0 "#PWR0106" H 5460 3670 50  0001 C CNN
+F 1 "GND" H 5580 3950 50  0000 C CNN
+F 2 "" H 5460 3920 50  0001 C CNN
+F 3 "" H 5460 3920 50  0001 C CNN
+	1    5460 3920
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:L78L05_TO92 U3
+U 1 1 612561F9
+P 5460 3620
+F 0 "U3" H 5460 3862 50  0000 C CNN
+F 1 "L78L05_TO92" H 5460 3771 50  0000 C CNN
+F 2 "Package_TO_SOT_THT:TO-92L_HandSolder" H 5460 3845 50  0001 C CIN
+F 3 "http://www.st.com/content/ccc/resource/technical/document/datasheet/15/55/e5/aa/23/5b/43/fd/CD00000446.pdf/files/CD00000446.pdf/jcr:content/translations/en.CD00000446.pdf" H 5460 3570 50  0001 C CNN
+	1    5460 3620
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	5160 3620 5050 3620
+Text Label 6000 4060 0    50   ~ 0
+PA
+Text Label 7020 4750 0    50   ~ 0
+RF_OUT
+Text Label 4620 5240 0    35   ~ 0
+RF_IN
+Text Label 7030 5730 0    50   ~ 0
+GND
+Text Label 6000 4910 0    50   ~ 0
+DRAIN
+$EndSCHEMATC

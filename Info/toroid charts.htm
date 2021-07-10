@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0065)ftp://ftp.lehigh.edu/pub/listserv/qrp-l/articles/toroidcharts.mcq -->
+<html><head>
+<!-- Google Tag Manager -->
+<script async="" src="toroid%20charts_files/gtm.js"></script><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PNZMQNL');</script>
+<!-- End Google Tag Manager -->
+
+<title>toroid charts</title>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="toroid%20charts_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-93687605-1');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<meta name="robots" content="noarchive">
+
+<meta name="Description" content="I got tired of hauling out the Amidon toroid charts every time, hunting up the formula and Al value for toroids, digging out the calculator and doing the calculations.">
+
+<meta content="text/html; charset=windows-1252" http-equiv="Content-Type">
+<meta content="MSHTML 5.00.2314.1000" name="GENERATOR"></head>
+<body><xmp>
+TOROID INDUCTANCE CHARTS
+
+Michael A. Czuhajewski WA8MCQ
+7945 Citadel Drive
+Severn, MD  21144
+
+*****************************************************************
+This article originally appeared in the QRP Quarterly for October
+1992, page 9.  Copyright 1992, Michael A. Czuhajewski. Non-commercial
+reprinting or reposting permitted with proper credit.
+*****************************************************************
+
+
+This article is a "golden oldie", of sorts. I wrote the first version
+in 1988 and have been trying, half-heartedly, since then to get it
+into the QRP Quarterly.  It's not that it's a bad article, just that
+there were some substantial logistical problems in getting it from my
+computer to the publishers typesetting computer, since I didn't own
+an IBM compatible until 1991. Things started looking up when I got
+volcano'ed out of the Philippines, had to abandon my TRS-80 computer
+and buy a new one, this time an IBM compatible.  Now I could send an
+ASCII disk. And then Maryland Radio Center, the ham store where I
+work, eventually upgraded to a '386 computer with laser printer, and
+now I can submit camera-ready copy to the editor, totally eliminating
+all middle-men.  (My deepest thanks to MRC owner Jerry Johnson,
+WA3WZF, for use of his computer.)
+
+Now for the 397th rewrite of the text...  Getting back into ham radio
+in 1986 after an absence of over 15 years, I began poring over the
+tremendous number of homebrew articles that I missed in the interim.
+In comparing design features of various projects using toroids, I
+often had to convert winding data to inductance or vice versa.  At
+other times, I found myself building something and didn't have the
+exact size of core called for.
+
+I got tired of hauling out the Amidon charts every time, hunting up
+the formula and Al value, digging out the calculator and doing the
+calculations.  That seemed like a lot of unnecessary work,
+reinventing the wheel each time (how often did I calculate the
+inductance for 15 turns on a T50-2 core?), along with the ever
+present possibility of making mistakes when applying the formulas.
+It would be much quicker and simpler to refer to a chart and
+instantly see that X turns on core Y gives Z microhenries, and how
+many turns on another core would give approximately the same.  The
+obvious answer, then, was to write a BASIC program to compute and
+print out, once and for all, the inductance per turn for a variety of
+the most commonly used toroids.  Amidon provides similar charts, but
+only in multiples of ten turns.  Mine are tailored to the coils and
+cores most often used by QRPers.
+
+USING THE CHARTS
+
+Inductance for a given number of turns can be read directly from the
+charts.  When looking for the number of turns required to obtain a
+specific inductance, simply choose the nearest inductance value from
+the chart under the core(s) of interest and read across. (It is
+assumed that you already know which core material is suitable for the
+application at hand, having considered operating frequency, Q, etc.)
+While I could have run off a second set of charts indexed by
+inductance rather than turns, it would have been much larger and
+would also have given results in fractions of turns, which are not
+practical to implement on toroids.  If a slightly different value of
+inductance is required than that shown on the chart, the winding can
+be compressed or expanded slightly.
+
+I originally made charts for every core size within these 4
+materials, which are the most commonly used types.  It ran to 11
+pages, but I quickly realized that only a small number of sizes were
+used most of the time.  (Do you remember the last time YOU used a
+T157-2 core?)  Also, most coils use a relatively small number of
+turns, hence the cut-off at 35.  In those relatively rare cases where
+some other size or material is used, or more turns, you can consult
+the published information, such as an Amidon flyer, and apply their
+formulas.
+
+I moved the output of the BASIC program over to the word processor
+and dressed it up, including rounding off the values. There wasn't
+much point in showing additional decimal places; it implied a degree
+of precision that is unattainable in practice, as well as cluttering
+up the charts. (If you put 21 turns on an FT50-43 core, can you
+REALLY expect to get precisely 230.643 microhenries?)  Anyone who has
+ever used a toroid knows how variable the inductance is for a given
+number of turns, depending on spacing of the turns as well as
+variations in permeability between nominally identical cores.  In one
+of their catalogs, Micrometals (who makes the powdered iron cores
+sold by Amidon) indicates that inductance tolerance, due to core to
+core permeability variations, is plus or minus 5%
+
+By the way, I've noticed over the years that under some circumstances
+the published Al values seem to be little more than a general guide
+to the actual inductances you'll get, and need to be taken with a
+grain of salt. I've done a fair amount of experimenting with my
+Boonton 260A Q meter, and notice that when I get to low values of
+inductance the "apparent Al value" deviates from the published value.
+This is most apparent with coils under one microhenry.  The villains,
+which become significant factors at low inductance values, are the
+distributed capacitance of the coil, which makes the "apparent
+inductance" appear larger than the "true inductance", and the lead
+length.  Even straight wire has finite inductance, and it adds up.
+
+HOW MUCH WIRE TO USE?
+
+Next, a different chart of great usefulness--how to figure out how
+much wire you need to wind those coils.  I originally had this
+published in the October 1988 issue of the QRP Quarterly, and it's
+time to resurrect it again.  You have three choices when winding a
+toroid:  1) cut off a random piece of wire which looks like it's long
+enough and hope for the best; you'll end up wasting wire or saying
+bad things when you run out of wire 5 turns before the end; 2) wind a
+single turn with a piece of thread, measure it and multiply by the
+number of turns you want; 3) look up the single turn length from the
+chart below.
+
+Since I didn't have all core sizes on hand to do the single turn
+trick, I used the published dimensions from the Amidon flyer to
+figure out the circumferences.  I wound some sample coils, and things
+didn't always work out right; the figures were the sum of dimensions,
+but real wire has finite thickness, and I needed more.  After
+observing how much more wire was needed, from 7 to 13%,  I settled on
+a fudge factor of 15%, which should cover just about every case, and
+that's built into the charts.  On top of that, you also have to
+provide extra wire for leads;  I usually add two or three inches.  If
+you just cut the amount of wire shown, you'll end up with a coil that
+just fits on the core but no wire left over to connect to your
+circuit!
+
+After the original publication, K3TKS pointed out to me that these
+values are only good for single layer coils.  They don't apply if you
+do multiple layers (which we don't normally do in QRP building) or if
+you wind bifilar, trifilar, etc; in those cases you're on your own,
+but the chart gives a good starting point.
+
+I hope these charts make life simpler for some of you homebrewers out
+there; it certainly helps speed things up for me, and makes comparing
+circuits and building much more enjoyable.
+
+********************************************************************
+
+Core types  T25-2     T30-2     T37-2     T44-2     T50-2    T68-2
+Al value     34        43        40        52        49       57
+
+
+# of turns  I n d u c t a n c e   i n   m i c r o h e n r i e s
+
+ 1         .003      .004      .004      .005      .005      .006
+ 2         .014      .017      .016      .021      .020      .023
+ 3         .031      .039      .036      .047      .044      .051
+ 4         .054      .069      .064      .083      .078      .091
+ 5         .085      .108      .100      .130      .123      .143
+
+ 6         .122      .155      .144      .187      .176      .205
+ 7         .167      .211      .196      .255      .240      .279
+ 8         .218      .275      .256      .333      .314      .365
+ 9         .275      .348      .324      .421      .397      .462
+ 10        .340      .430      .400      .520      .490      .570
+
+ 11        .411      .520      .484      .629      .593      .690
+ 12        .490      .619      .576      .749      .706      .821
+ 13        .575      .727      .676      .879      .828      .963
+ 14        .666      .843      .784      1.02      .960      1.12
+ 15        .765      .968      .900      1.17      1.10      1.28
+
+ 16        .870      1.10      1.02      1.33      1.25      1.46
+ 17        .983      1.24      1.16      1.503     1.42      1.65
+ 18        1.10      1.39      1.30      1.69      1.59      1.85
+ 19        1.23      1.55      1.44      1.88      1.77      2.06
+ 20        1.36      1.72      1.60      2.08      1.96      2.28
+
+ 21        1.50      1.90      1.76      2.29      2.16      2.51
+ 22        1.65      2.08      1.94      2.52      2.37      2.76
+ 23        1.80      2.28      2.12      2.75      2.59      3.02
+ 24        1.96      2.48      2.30      3.00      2.82      3.28
+ 25        2.13      2.69      2.50      3.25      3.06      3.56
+
+ 26        2.30      2.91      2.70      3.52      3.31      3.85
+ 27        2.48      3.14      2.92      3.79      3.57      4.16
+ 28        2.67      3.37      3.14      4.08      3.84      4.47
+ 29        2.86      3.62      3.36      4.37      4.12      4.79
+ 30        3.06      3.87      3.60      4.68      4.41      5.13
+
+ 31        3.27      4.13      3.84      5.00      4.71      5.48
+ 32        3.48      4.40      4.10      5.33      5.02      5.84
+ 33        3.70      4.68      4.36      5.66      5.34      6.21
+ 34        3.93      4.97      4.62      6.01      5.67      6.59
+ 35        4.17      5.27      4.90      6.37      6.00      6.98
+
+********************************************************************
+
+Core      T25-6     T30-6     T37-6     T44-6     T50-6    T68-6
+types
+
+Al values 27        36        30        42        40        47
+
+# of turns  I n d u c t a n c e   i n   m i c r o h e n r i e s
+
+
+ 1        .003      .004      .003      .004      .004      .005
+ 2        .011      .014      .012      .017      .016      .019
+ 3        .024      .032      .027      .038      .036      .042
+ 4        .043      .058      .048      .067      .064      .075
+ 5         068      .090      .075      .105      .100      .118
+
+ 6        .097      .130      .108      .151      .144      .169
+ 7        .132      .176      .147      .206      .196      .230
+ 8        .173      .230      .192      .269      .256      .301
+ 9        .219      .292      .243      .340      .324      .381
+ 10       .270      .360      .300      .420      .400      .470
+
+ 11       .327      .436      .363      .508      .484      .569
+ 12       .389      .518      .432      .605      .576      .677
+ 13       .456      .608      .507      .710      .676      .794
+ 14       .529      .706      .588      .823      .784      .921
+ 15       .608      .810      .675      .945      .900      1.06
+
+ 16       .691      .922      .768      1.08      1.02      1.20
+ 17       .780      1.04      .867      1.21      1.16      1.36
+ 18       .875      1.17      .972      1.36      1.30      1.52
+ 19       .975      1.30      1.08      1.52      1.44      1.70
+ 20       1.08      1.44      1.20      1.68      1.60      1.88
+
+ 21       1.19      1.59      1.32      1.85      1.76      2.07
+ 22       1.31      1.74      1.45      2.03      1.94      2.28
+ 23       1.43      1.90      1.59      2.22      2.12      2.49
+ 24       1.56      2.07      1.73      2.42      2.30      2.71
+ 25       1.69      2.25      1.88      2.63      2.50      2.94
+
+ 26       1.83      2.43      2.03      2.84      2.70      3.18
+ 27       1.97      2.62      2.19      3.06      2.92      3.43
+ 28       2.12      2.82      2.35      3.29      3.14      3.69
+ 29       2.27      3.03      2.52      3.53      3.36      3.95
+ 30       2.43      3.24      2.70      3.78      3.60      4.23
+
+ 31       2.60      3.46      2.88      4.04      3.84      4.52
+ 32       2.77      3.69      3.07      4.30      4.10      4.81
+ 33       2.94      3.92      3.27      4.57      4.36      5.12
+ 34       3.12      4.16      3.47      4.86      4.62      5.43
+ 35       3.31      4.41      3.68      5.15      4.90      5.76
+
+********************************************************************
+
+Core types  FT23-43   FT37-43   FT50-43   FT23-61   FT37-61  FT50-61
+
+Al values   188       420       523       24.8      55.3      68
+
+
+# of turns  I n d u c t a n c e   i n   m i c r o h e n r i e s
+
+ 1         .188      .420      .523      .025      .055      .068
+ 2         .752      1.68      2.09      .099      .221      .272
+ 3         1.69      3.78      4.71      .223      .498      .612
+ 4         3.01      6.72      8.37      .397      .885      1.09
+ 5         4.70      10.5      13.1      .620      1.38      1.70
+
+ 6         6.77      15.1      18.8      .893      1.99      2.45
+ 7         9.21      20.6      25.6      1.22      2.71      3.33
+ 8         12.0      26.9      33.5      1.51      3.54      4.35
+ 9         15.2      34.0      42.4      2.03      4.48      5.51
+ 10        18.8      42.0      52.3      2.48      5.53      6.80
+
+ 11        22.7      50.8      63.3      3.00      6.69      8.23
+ 12        27.1      60.5      75.3      3.57      7.96      9.79
+ 13        31.8      71.0      88.4      4.19      9.35      11.5
+ 14        36.8      82.3      102       4.86      10.8      13.3
+ 15        42.3      94.5      118       5.58      12.4      15.3
+
+ 16        48.1      107       134       6.35      14.2      17.4
+ 17        54.3      121       151       7.17      16.0      19.7
+ 18        60.9      136       169       8.04      17.9      22.0
+ 19        67.9      152       189       8.95      20.0      24.5
+ 20        75.2      168       209       9.92      22.1      27.2
+
+ 21        82.9      185       231       10.9      24.4      30.0
+ 22        91.0      203       253       12.0      26.8      32.9
+ 23        99.5      222       277       13.1      29.3      36.0
+ 24        108       242       301       14.3      31.9      39.2
+ 25        118       262       327       15.5      34.6      42.5
+
+ 26        127       284       354       16.8      37.4      46.0
+ 27        137       306       381       18.1      40.3      49.6
+ 28        147       329       410       19.4      43.4      53.3
+ 29        158       353       440       20.9      46.5      57.2
+ 30        169       378       471       22.3      49.8      61.2
+
+ 31        181       404       503       23.8      53.1      65.3
+ 32        192       430       536       25.4      56.6      69.6
+ 33        205       457       570       27.0      60.2      74.1
+ 34        217       486       605       28.7      63.9      78.6
+ 35        230       515       641       30.4      67.7      83.3
+
+********************************************************************
+
+Wire Length vs. Turns--
+
+(Be sure to include a few extra inches for leads--lead length is NOT
+included here!)
+
+
+Size      Inches per turn          Size      Inches per turn
+
+FT23           .26                 T37       .49
+FT37           .5                  T44       .61
+FT50           .68                 T50       .67
+FT50A          .79                 T68       .8
+FT50B          1.37                T80       .92
+
+FT82           .93                 T94       1.16
+FT87A          1.53                T106      1.57
+FT114          1.13                T130      1.6
+FT114A         1.7                 T157      2.02
+FT140          1.73                T184      2.66
+
+FT150          1.44                T200      2.13
+FT150A         2.01                T200A     3.16
+FT193          2.22                T225      2.24
+FT193A         2.51                T225A     3.28
+FT240          2.3                 T300      2.39
+
+T12            .19                 T300A     3.54
+T16            .23                 T400      3.51
+T20            .29                 T400A     4.31
+T25            .37                 T500      4.28
+T30            .47
+
+[1995 note--that's not a typo--the list does go from FT82 to FT87A;
+not sure why I didn't include FT87, and I'm too lazy to go back and
+do the calculations for it :-)   ]
+
+--qrp--
+
+
+--
+Mike Czuhajewski, user of the UniBoard System &amp;#64; abs.net
+E-Mail: Mike.Czuhajewski&amp;#64;bbs.abs.net
+The WB3FFV Amateur Radio BBS - Located in Baltimore, Maryland USA
+Supporting the Amateur Radio Hobby, and TCP/IP InterNetworking
+
+</xmp>
+</body></html>
